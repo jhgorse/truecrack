@@ -354,9 +354,14 @@ void core(void){
 				cuda_Core_charset ( CORE_encryptionAlgorithm, block_size,offset, strlen(CORE_charset), CORE_charset, wordlength, result, CORE_keyDerivationFunction) ;
 				
 				for (i=0;i<block_size && status!=1 ;i++) {
-					if(result[i]==1)
+          if(result[i]==1) {
 						status=1;
-				} 
+            printf("%llu\t",count+i);
+            computePwd (iblock*CORE_blocksize+i, maxcombination, strlen(CORE_charset),CORE_charset, wordlength, word);
+            word[wordlength]='\0';
+            printf("%s\n", word);
+          }
+				}
 				if (CORE_verbose) {
 					for (j=0;j<block_size;j++) {
 						computePwd (iblock*CORE_blocksize+j, maxcombination, strlen(CORE_charset),CORE_charset, wordlength, word);
